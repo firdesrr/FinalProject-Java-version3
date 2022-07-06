@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
 
 //Курсов проект "Система за отпуски"
 public class Main {
@@ -16,9 +18,9 @@ public class Main {
     //При избиране на 1, потребителят въвежда последователно
 //     Име, имейл, ЕГН, две дати - за начало и край на отпуската, тип на отпуската - платена или неплатена.
 //     При грешен формат на данните да излизат подходящи съобщения.
-    public static String[] inputLeaveData() {
+    public static String[] inputLeaveData(int leaveNum) {
         Scanner scan = new Scanner(System.in);
-        String[] employeeData = new String[6];
+        String[] employeeData = new String[7];
         System.out.print("Name: ");
         employeeData[0] = scan.nextLine();
         System.out.print("email: ");
@@ -31,15 +33,16 @@ public class Main {
         employeeData[4] = scan.nextLine();
         System.out.print("typeOfLeave (paid, unpaid): ");
         employeeData[5] = scan.nextLine();
-
-        return employeeData;
-    }
+        leaveNum++;
+        return employeeData;    }
 
     //При избиране на 2, на екрана се показват във формата на таблица, всички         направени до сега заявки.
+
 //    KAK???? Всички заявки се помнят при изключване на програмата.
     public static String[][] fillMatrixLeaveData(int n, String[] employee) {
         //matrixLeaveData да е Array List от масив от стрингове или n да е 1000
         //параметър за поредната попълвана отпуска, който ще се пази в main
+       // ArrayList<String> list=new ArrayList<String>();//creating new generic arraylist
         String[][] matrixLeaveData = new String[n][6];
 
         for (int i = 0; i < n; i++) {
@@ -91,14 +94,31 @@ public class Main {
 
  */
 
+
+
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         System.out.print("Система за заявяване на отпуски\nВъведи брой служители в компанията: ");
+
         int numEmployes = scan.nextInt();
-        String[] employee = new String[6];
-        String[][] matrix = new String[numEmployes][6];
+        String[] employee = new String[7];
+        String[][] matrix = new String[numEmployes][7];
         String name;
         String fake;
+
+        /*try {
+            File file = new File("C:\\newfile.txt");
+            boolean isCreated = file.createNewFile();
+            if (isCreated) {
+                System.out.println("File has been created successfully");
+            } else {
+                System.out.println("File already present at the specified location");
+            }
+        } catch (IOException e) {
+            System.out.println("Exception Occurred:");
+            e.printStackTrace();
+        }*/
+
         printMenu();
         System.out.print("Въведи избор: ");
         int choice = scan.nextInt();
