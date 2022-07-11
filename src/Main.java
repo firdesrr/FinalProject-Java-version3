@@ -18,9 +18,9 @@ public class Main {
     //При избиране на 1, потребителят въвежда последователно
 //     Име, имейл, ЕГН, две дати - за начало и край на отпуската, тип на отпуската - платена или неплатена.
 //     При грешен формат на данните да излизат подходящи съобщения.
-    public static String[] inputLeaveData(int leaveNum) {
+    public static String[] inputLeaveData() {
         Scanner scan = new Scanner(System.in);
-        String[] employeeData = new String[7];
+        String[] employeeData = new String[6];
         System.out.print("Name: ");
         employeeData[0] = scan.nextLine();
         System.out.print("email: ");
@@ -33,22 +33,25 @@ public class Main {
         employeeData[4] = scan.nextLine();
         System.out.print("typeOfLeave (paid, unpaid): ");
         employeeData[5] = scan.nextLine();
-        leaveNum++;
-        return employeeData;    }
+
+        return employeeData;
+    }
 
     //При избиране на 2, на екрана се показват във формата на таблица, всички         направени до сега заявки.
 
-//    KAK???? Всички заявки се помнят при изключване на програмата.
-    public static String[][] fillMatrixLeaveData(int n, String[] employee) {
-        //matrixLeaveData да е Array List от масив от стрингове или n да е 1000
+    //    KAK???? Всички заявки се помнят при изключване на програмата.
+    public static String[][] fillMatrixLeaveData(int n) {
+        //n брой заявени отпуски
+        //matrixLeaveData да е ArrayList от масив от стрингове или n да е 1000
         //параметър за поредната попълвана отпуска, който ще се пази в main
-       // ArrayList<String> list=new ArrayList<String>();//creating new generic arraylist
-        String[][] matrixLeaveData = new String[n][6];
 
-        for (int i = 0; i < n; i++) {
-            inputLeaveData();
+        String[][] matrixLeaveData = new String[n][6];
+        String[] employeeData;
+
+        for (int i = 0; i <n; i++) {
+            employeeData= inputLeaveData();
             for (int j = 0; j < 6; j++) {
-                matrixLeaveData[i][j] = employee[j];
+                matrixLeaveData[i][j] = employeeData[j];
             }
         }
         return matrixLeaveData;
@@ -95,14 +98,13 @@ public class Main {
  */
 
 
-
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         System.out.print("Система за заявяване на отпуски\nВъведи брой служители в компанията: ");
 
         int numEmployes = scan.nextInt();
-        String[] employee = new String[7];
-        String[][] matrix = new String[numEmployes][7];
+        String[] employee = new String[6];
+        String[][] matrix = new String[numEmployes][6];
         String name;
         String fake;
 
@@ -126,7 +128,7 @@ public class Main {
         while (choice != 5) {
             switch (choice) {
                 case 1:
-                    matrix = fillMatrixLeaveData(numEmployes, employee);
+                    matrix = fillMatrixLeaveData(numEmployes);
                     break;
                 case 2:
                     printAllLeaveRequests(matrix);
